@@ -3,7 +3,7 @@ import  express from 'express';
 const app = express()
 
 app.get(`/`, (req,res) => {
-    res.status(200).send(`Hello! CheckDL is ready. v3`)
+    res.status(200).send(`Hello! CheckDL is ready. :))`)
 })
 app.get(`/api/checkdl`, (req,res) => {
 async function Main(url: string, keuntungan: number): Promise<any> {

@@ -16,7 +16,7 @@ const playwright_1 = require("playwright");
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 app.get(`/`, (req, res) => {
-    res.status(200).send(`Hello! CheckDL is ready. v3`);
+    res.status(200).send(`Hello! CheckDL is ready. :))`);
 });
 app.get(`/api/checkdl`, (req, res) => {
     function Main(url, keuntungan) {
