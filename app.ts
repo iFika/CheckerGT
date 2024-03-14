@@ -2,7 +2,10 @@ import {chromium} from 'playwright'
 import  express from 'express';
 const app = express()
 
-app.get(`/api/checkdls`, (req,res) => {
+app.get(`/`, (req,res) => {
+    res.status(200).send(`Hello! CheckDL is ready.`)
+})
+app.get(`/api/checkdl`, (req,res) => {
 async function Main(url: string, keuntungan: number): Promise<any> {
 {
 return new Promise(async(resolve,err) => {
@@ -31,6 +34,6 @@ Membeli : Rp.${data.pembelian.toLocaleString()}`})
 })
 })
 
-app.listen(3000).on('listening', () => {
-    console.log(`API is running on 3000.`)
+app.listen(80).on('listening', () => {
+    console.log(`API is running on 80.`)
 })
