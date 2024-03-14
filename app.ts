@@ -25,7 +25,8 @@ await browser.close()
 })
 }
 }
-Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data) => {
+Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data:any) => {
+console.log(data)
 res.status(200).send({RateSell: data.penjualan.toLocaleString(), 
 RateBuy: data.pembelian.toLocaleString(), 
 fullMessage: `Rate DLS Sekarang : 

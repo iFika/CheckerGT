@@ -65,6 +65,7 @@ app.get(`/api/checkdl`, (req, res) => {
         });
     }
     Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data) => {
+        console.log(data);
         res.status(200).send({ RateSell: data.penjualan.toLocaleString(),
             RateBuy: data.pembelian.toLocaleString(),
             fullMessage: `Rate DLS Sekarang : 
