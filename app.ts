@@ -16,7 +16,7 @@ return new Promise(async(resolve,err) => {
         '--disable-setuid-sandbox',
         '--disable-gl-drawing-for-tests',
       ],})
-    let page = await (await browser.newContext()).newPage()
+    let page = await browser.newPage()
    await page.goto(url)
    await page.reload()
    if(!await page.getByText('Pengiriman Instan').isVisible()) await page.reload()
@@ -26,6 +26,7 @@ let pembelianNum = pembelian.replace(/[^\d]/g, "")
 resolve({pembelian: parseInt(pembelianNum),
     penjualan: parseInt(pembelianNum) - keuntungan
 })
+await browser.close()
 })
 }
 }

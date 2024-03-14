@@ -53,7 +53,7 @@ app.get(`/api/checkdl`, (req, res) => {
                             '--disable-setuid-sandbox',
                             '--disable-gl-drawing-for-tests',
                         ], });
-                    let page = yield (yield browser.newContext()).newPage();
+                    let page = yield browser.newPage();
                     yield page.goto(url);
                     yield page.reload();
                     if (!(yield page.getByText('Pengiriman Instan').isVisible()))
@@ -64,6 +64,7 @@ app.get(`/api/checkdl`, (req, res) => {
                     resolve({ pembelian: parseInt(pembelianNum),
                         penjualan: parseInt(pembelianNum) - keuntungan
                     });
+                    yield browser.close();
                 }));
             }
         });
