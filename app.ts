@@ -10,11 +10,16 @@ async function Main(url: string, keuntungan: number): Promise<any> {
 {
 return new Promise(async(resolve,err) => {
     console.log(`[Node-Store] : Mengambil informasi harga..`)
-    let browser = await playwright.launchChromium({headless: true})
+    let browser = await playwright.launchChromium({headless: true, args: [
+        // Use with caution!
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-gl-drawing-for-tests',
+      ],})
     let page = await (await browser.newContext()).newPage()
-   await page.goto(url, {waitUntil: 'networkidle'})
-   await page.reload({waitUntil: 'networkidle'})
-   if(!await page.getByText('Pengiriman Instan').isVisible()) await page.reload({waitUntil: 'networkidle'})
+   await page.goto(url)
+   await page.reload()
+   if(!await page.getByText('Pengiriman Instan').isVisible()) await page.reload()
 await page.getByText('Pengiriman Instan').click()
 let pembelian = (await page.locator('div[id=sticky]').getByText(/Rp./).innerText()).toString()
 let pembelianNum = pembelian.replace(/[^\d]/g, "")
@@ -26,7 +31,6 @@ await browser.close()
 }
 }
 Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data:any) => {
-console.log(data)
 res.status(200).send({RateSell: data.penjualan.toLocaleString(), 
 RateBuy: data.pembelian.toLocaleString(), 
 fullMessage: `Rate DLS Sekarang : 

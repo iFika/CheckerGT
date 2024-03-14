@@ -47,12 +47,17 @@ app.get(`/api/checkdl`, (req, res) => {
             {
                 return new Promise((resolve, err) => __awaiter(this, void 0, void 0, function* () {
                     console.log(`[Node-Store] : Mengambil informasi harga..`);
-                    let browser = yield playwright.launchChromium({ headless: true });
+                    let browser = yield playwright.launchChromium({ headless: true, args: [
+                            // Use with caution!
+                            '--no-sandbox',
+                            '--disable-setuid-sandbox',
+                            '--disable-gl-drawing-for-tests',
+                        ], });
                     let page = yield (yield browser.newContext()).newPage();
-                    yield page.goto(url, { waitUntil: 'networkidle' });
-                    yield page.reload({ waitUntil: 'networkidle' });
+                    yield page.goto(url);
+                    yield page.reload();
                     if (!(yield page.getByText('Pengiriman Instan').isVisible()))
-                        yield page.reload({ waitUntil: 'networkidle' });
+                        yield page.reload();
                     yield page.getByText('Pengiriman Instan').click();
                     let pembelian = (yield page.locator('div[id=sticky]').getByText(/Rp./).innerText()).toString();
                     let pembelianNum = pembelian.replace(/[^\d]/g, "");
@@ -65,7 +70,6 @@ app.get(`/api/checkdl`, (req, res) => {
         });
     }
     Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data) => {
-        console.log(data);
         res.status(200).send({ RateSell: data.penjualan.toLocaleString(),
             RateBuy: data.pembelian.toLocaleString(),
             fullMessage: `Rate DLS Sekarang : 
