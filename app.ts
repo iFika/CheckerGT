@@ -34,6 +34,8 @@ Membeli : Rp.${data.pembelian.toLocaleString()}`})
 })
 })
 
-app.listen(80).on('listening', () => {
-    console.log(`API is running on 80.`)
+app.listen(3000).on('listening', () => {
+    console.log(`API is running on 3000.`)
 })
+
+module.exports = app
