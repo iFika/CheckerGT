@@ -2,6 +2,9 @@
 import chromium from '@sparticuz/chromium'
 import playwright from 'playwright-core'
 import  express from 'express';
+import dotenv from 'dotenv';
+dotenv.config()
+console.log(process.env.MODE)
 const app = express()
 
 app.get(`/`, (req,res) => {
@@ -16,7 +19,7 @@ return new Promise(async(resolve,err) => {
     let browser = await playwright.chromium.launch({
          args: chromium.args,
         headless: true,
-    executablePath: await chromium.executablePath()
+   executablePath: (process.env.MODE == "Dev" ? await chromium.executablePath() : playwright.chromium.executablePath())
 })
     let page = await browser.newPage()
    await page.goto(url)

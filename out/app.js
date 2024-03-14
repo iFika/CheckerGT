@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chromium_1 = __importDefault(require("@sparticuz/chromium"));
 const playwright_core_1 = __importDefault(require("playwright-core"));
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+console.log(process.env.MODE);
 const app = (0, express_1.default)();
 app.get(`/`, (req, res) => {
     res.status(200).send(`Hello! CheckDL is Serverless. :))`);
@@ -28,7 +31,7 @@ app.get(`/api/checkdl`, (req, res) => {
                     let browser = yield playwright_core_1.default.chromium.launch({
                         args: chromium_1.default.args,
                         headless: true,
-                        executablePath: yield chromium_1.default.executablePath()
+                        executablePath: (process.env.MODE == "Dev" ? yield chromium_1.default.executablePath() : playwright_core_1.default.chromium.executablePath())
                     });
                     let page = yield browser.newPage();
                     yield page.goto(url);
