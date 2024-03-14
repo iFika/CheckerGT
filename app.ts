@@ -1,4 +1,6 @@
-import * as playwright from 'playwright-aws-lambda'
+
+import chromium from '@sparticuz/chromium'
+import playwright from 'playwright-core'
 import  express from 'express';
 const app = express()
 
@@ -10,12 +12,12 @@ async function Main(url: string, keuntungan: number): Promise<any> {
 {
 return new Promise(async(resolve,err) => {
     console.log(`[Node-Store] : Mengambil informasi harga..`)
-    let browser = await playwright.launchChromium({headless: true, args: [
-        // Use with caution!
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-gl-drawing-for-tests',
-      ],})
+
+    let browser = await playwright.chromium.launch({
+         args: chromium.args,
+        headless: true,
+    executablePath: await chromium.executablePath()
+})
     let page = await browser.newPage()
    await page.goto(url)
    await page.reload()
