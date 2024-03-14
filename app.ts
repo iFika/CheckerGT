@@ -1,16 +1,16 @@
-import {chromium} from 'playwright'
+import * as playwright from 'playwright-aws-lambda'
 import  express from 'express';
 const app = express()
 
 app.get(`/`, (req,res) => {
-    res.status(200).send(`Hello! CheckDL is ready. :))`)
+    res.status(200).send(`Hello! CheckDL is Serverless. :))`)
 })
 app.get(`/api/checkdl`, (req,res) => {
 async function Main(url: string, keuntungan: number): Promise<any> {
 {
 return new Promise(async(resolve,err) => {
     console.log(`[Node-Store] : Mengambil informasi harga..`)
-    let browser = await chromium.launch({headless: true})
+    let browser = await playwright.launchChromium({headless: true})
     let page = await (await browser.newContext()).newPage()
    await page.goto(url, {waitUntil: 'networkidle'})
    await page.reload({waitUntil: 'networkidle'})
