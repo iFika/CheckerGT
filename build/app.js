@@ -15,7 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const playwright_1 = require("playwright");
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
-app.get(`/api/checkdls`, (req, res) => {
+app.get(`/`, (req, res) => {
+    res.status(200).send(`Hello! CheckDL is ready.`);
+});
+app.get(`/api/checkdl`, (req, res) => {
     function Main(url, keuntungan) {
         return __awaiter(this, void 0, void 0, function* () {
             {
@@ -46,6 +49,6 @@ Menjual : Rp.${data.penjualan.toLocaleString()}
 Membeli : Rp.${data.pembelian.toLocaleString()}` });
     });
 });
-app.listen(3000).on('listening', () => {
-    console.log(`API is running on 3000.`);
+app.listen(80).on('listening', () => {
+    console.log(`API is running on 80.`);
 });
