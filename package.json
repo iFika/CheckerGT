@@ -9,6 +9,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
+    "nodemon": "^3.1.0",
     "pre-commit": "^1.2.2",
     "rimraf": "^5.0.5"
   },
@@ -23,7 +24,7 @@
     "ts.check",
     "build",
     "add-build"
-],
+  ],
   "author": "",
   "license": "ISC"
 }
