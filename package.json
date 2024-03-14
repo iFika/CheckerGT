@@ -10,7 +10,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "build": "tsc && npx playwright install"
+    "build": "tsc && npx playwright install chromium"
   },
   "author": "",
   "license": "ISC"
