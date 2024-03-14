@@ -64,7 +64,6 @@ app.get(`/api/checkdl`, (req, res) => {
                     resolve({ pembelian: parseInt(pembelianNum),
                         penjualan: parseInt(pembelianNum) - keuntungan
                     });
-                    yield browser.close();
                 }));
             }
         });

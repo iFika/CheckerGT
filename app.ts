@@ -26,7 +26,6 @@ let pembelianNum = pembelian.replace(/[^\d]/g, "")
 resolve({pembelian: parseInt(pembelianNum),
     penjualan: parseInt(pembelianNum) - keuntungan
 })
-await browser.close()
 })
 }
 }
