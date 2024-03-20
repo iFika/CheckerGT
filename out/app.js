@@ -16,7 +16,7 @@ const chromium_1 = __importDefault(require("@sparticuz/chromium"));
 const playwright_core_1 = __importDefault(require("playwright-core"));
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+dotenv_1.default.config({ path: "mike.env" });
 console.log(process.env.MODE);
 const app = (0, express_1.default)();
 app.get(`/`, (req, res) => {
@@ -29,13 +29,11 @@ app.get(`/api/checkdl`, (req, res) => {
                 return new Promise((resolve, err) => __awaiter(this, void 0, void 0, function* () {
                     console.log(`[Node-Store] : Mengambil informasi harga..`);
                     let browser = yield playwright_core_1.default.chromium.launch({
-                        args: chromium_1.default.args,
                         headless: true,
                         executablePath: (process.env.MODE == "Dev" ? yield chromium_1.default.executablePath() : playwright_core_1.default.chromium.executablePath())
                     });
                     let page = yield browser.newPage();
-                    yield page.goto(url);
-                    yield page.reload();
+                    yield page.goto(url, { waitUntil: 'networkidle' });
                     if (!(yield page.getByText('Pengiriman Instan').isVisible()))
                         yield page.reload();
                     yield page.getByText('Pengiriman Instan').click();
@@ -50,6 +48,7 @@ app.get(`/api/checkdl`, (req, res) => {
         });
     }
     Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data) => {
+        console.log(`done`);
         res.status(200).send({ RateSell: data.penjualan.toLocaleString(),
             RateBuy: data.pembelian.toLocaleString(),
             fullMessage: `Rate DLS Sekarang : 

@@ -3,7 +3,7 @@ import chromium from '@sparticuz/chromium'
 import playwright from 'playwright-core'
 import  express from 'express';
 import dotenv from 'dotenv';
-dotenv.config()
+dotenv.config({path: "mike.env"})
 console.log(process.env.MODE)
 const app = express()
 
@@ -17,13 +17,11 @@ return new Promise(async(resolve,err) => {
     console.log(`[Node-Store] : Mengambil informasi harga..`)
 
     let browser = await playwright.chromium.launch({
-         args: chromium.args,
         headless: true,
    executablePath: (process.env.MODE == "Dev" ? await chromium.executablePath() : playwright.chromium.executablePath())
 })
     let page = await browser.newPage()
-   await page.goto(url)
-   await page.reload()
+   await page.goto(url, {waitUntil: 'networkidle'})
    if(!await page.getByText('Pengiriman Instan').isVisible()) await page.reload()
 await page.getByText('Pengiriman Instan').click()
 let pembelian = (await page.locator('div[id=sticky]').getByText(/Rp./).innerText()).toString()
@@ -36,6 +34,7 @@ await browser.close()
 }
 }
 Main('https://itemku.com/belanja-cepat/growtopia', 1000).then((data:any) => {
+    console.log(`done`)
 res.status(200).send({RateSell: data.penjualan.toLocaleString(), 
 RateBuy: data.pembelian.toLocaleString(), 
 fullMessage: `Rate DLS Sekarang : 
