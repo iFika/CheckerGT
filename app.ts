@@ -4,7 +4,6 @@ import playwright from 'playwright-core'
 import  express from 'express';
 import dotenv from 'dotenv';
 dotenv.config({path: "mike.env"})
-console.log(process.env.MODE)
 const app = express()
 
 app.get(`/`, (req,res) => {
@@ -14,6 +13,7 @@ app.get(`/api/checkdl`, (req,res) => {
 async function Main(url: string, keuntungan: number): Promise<any> {
 {
 return new Promise(async(resolve,err) => {
+    console.log(process.env.MODE)
     console.log(`[Node-Store] : Mengambil informasi harga..`)
 
     let browser = await playwright.chromium.launch({

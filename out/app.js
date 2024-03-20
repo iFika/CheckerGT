@@ -17,7 +17,6 @@ const playwright_core_1 = __importDefault(require("playwright-core"));
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: "mike.env" });
-console.log(process.env.MODE);
 const app = (0, express_1.default)();
 app.get(`/`, (req, res) => {
     res.status(200).send(`Hello! CheckDL is Serverless. :))`);
@@ -27,6 +26,7 @@ app.get(`/api/checkdl`, (req, res) => {
         return __awaiter(this, void 0, void 0, function* () {
             {
                 return new Promise((resolve, err) => __awaiter(this, void 0, void 0, function* () {
+                    console.log(process.env.MODE);
                     console.log(`[Node-Store] : Mengambil informasi harga..`);
                     let browser = yield playwright_core_1.default.chromium.launch({
                         args: chromium_1.default.args,
