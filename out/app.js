@@ -29,6 +29,7 @@ app.get(`/api/checkdl`, (req, res) => {
                 return new Promise((resolve, err) => __awaiter(this, void 0, void 0, function* () {
                     console.log(`[Node-Store] : Mengambil informasi harga..`);
                     let browser = yield playwright_core_1.default.chromium.launch({
+                        args: chromium_1.default.args,
                         headless: true,
                         executablePath: (process.env.MODE == "Dev" ? yield chromium_1.default.executablePath() : playwright_core_1.default.chromium.executablePath())
                     });

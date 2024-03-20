@@ -17,6 +17,7 @@ return new Promise(async(resolve,err) => {
     console.log(`[Node-Store] : Mengambil informasi harga..`)
 
     let browser = await playwright.chromium.launch({
+        args: chromium.args,
         headless: true,
    executablePath: (process.env.MODE == "Dev" ? await chromium.executablePath() : playwright.chromium.executablePath())
 })
